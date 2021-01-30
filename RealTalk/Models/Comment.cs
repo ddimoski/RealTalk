@@ -6,6 +6,7 @@ using System.Web;
 
 namespace RealTalk.Models
 {
+    //trivial comment
     public class Comment
     {
         [Key]
