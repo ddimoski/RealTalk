@@ -9,6 +9,9 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+<a href="#" class="btn btn-primary" id="export-btn">Find a random post</a>
+<input type="text" id="tagName">
+
 <table class="table">
     <tr>
         <th>
@@ -20,20 +23,33 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Content)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Content)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id }) |
+                @Html.ActionLink("Add to Post", "AddTagToPost", new { id = item.Id })
+            </td>
+        </tr>
+    }
 
 </table>
+
+@section scripts {
+    <script>
+        $(document).ready(function(){
+            $("#export-btn").click(function(event){
+            event.preventDefault();
+                window.location.href = "@Url.Action("Search", "Posts")" + "/" + $("#tagName").val();
+            });
+        })
+    </script>
+}

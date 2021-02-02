@@ -1,19 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using Microsoft.AspNet.Identity;
+using RealTalk.Models;
+using System;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using RealTalk.Models;
-using RealTalk.Models.Context;
 
 namespace RealTalk.Controllers
 {
     public class PostsController : Controller
     {
-        private RealTalkContext db = new RealTalkContext();
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Posts
         public ActionResult Index()
@@ -21,9 +18,20 @@ namespace RealTalk.Controllers
             return View(db.Posts.ToList());
         }
 
+        //public ActionResult Search(string tagName)
+        //{}
+
         // GET: Posts/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(int? id, string tagName)
         {
+            System.Diagnostics.Debug.WriteLine("D E T A I L S !!!");
+            System.Diagnostics.Debug.WriteLine(User.Identity.GetUserName());
+
+            if (tagName != null) 
+            {
+                System.Diagnostics.Debug.WriteLine("Tag name is not null!!!");
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -51,13 +59,37 @@ namespace RealTalk.Controllers
         {
             if (ModelState.IsValid)
             {
+                string username = User.Identity.GetUserName();
+                ApplicationUser user = db.Users.Where(u => u.UserName == username).FirstOrDefault();
+                post.User = user;
                 db.Posts.Add(post);
                 db.SaveChanges();
+                System.Diagnostics.Debug.WriteLine("Saved post: "+post);
                 return RedirectToAction("Index");
             }
 
             return View(post);
         }
+
+        public ActionResult AddTagToPost(int id)
+        {
+            AddTagToPost model = new AddTagToPost();
+            model.selectedPost = id;
+            model.tags = db.Tags.ToList();
+            ViewBag.PostTitle = db.Posts.Find(id).Title;
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult AddTagToPost(AddTagToPost model)
+        {
+            var tag = db.Tags.Find(model.selectedTag);
+            var post = db.Posts.Find(model.selectedPost);
+            post.Tags.Add(tag);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
 
         // GET: Posts/Edit/5
         public ActionResult Edit(int? id)
