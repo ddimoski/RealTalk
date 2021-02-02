@@ -16,7 +16,8 @@ namespace RealTalk.Models
         public String Content { get; set; }
 
         public ApplicationUser User { get; set; }
-
+        
+        public String Author { get; set; }
         public virtual List<Tag> Tags { get; set; }
 
         public Post()

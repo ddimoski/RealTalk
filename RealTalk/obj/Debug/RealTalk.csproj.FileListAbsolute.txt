@@ -218,3 +218,4 @@ C:\Users\Nikola\source\repos\RealTalk\RealTalk\obj\Debug\RealTalk.dll
 C:\Users\Nikola\source\repos\RealTalk\RealTalk\obj\Debug\RealTalk.pdb
 C:\Users\Nikola\source\repos\RealTalk\RealTalk\obj\Debug\RealTalk.Migrations.init.resources
 C:\Users\Nikola\source\repos\RealTalk\RealTalk\obj\Debug\RealTalk.csproj.GenerateResource.cache
+C:\Users\Nikola\source\repos\RealTalk\RealTalk\obj\Debug\RealTalk.Migrations.addedauthorinpost.resources

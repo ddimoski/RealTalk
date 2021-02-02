@@ -1,7 +1,7 @@
 ﻿@model RealTalk.Models.Post
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Details";  
 }
 
 <h2>Details</h2>
@@ -18,13 +18,14 @@
             @Html.DisplayFor(model => model.Title)
         </dd>
 
-        <!--This doesnt work-->
+        <!--This doesn't work,
+        easiest solution would be adding a string Author field and setting its value when creating a post-->
         <dt>
-            @Html.DisplayNameFor(model => model.User)
+            @Html.DisplayNameFor(model => model.Author)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.User)
+            @Html.DisplayFor(model => model.Author)
         </dd>
 
         <dt>
