@@ -1,29 +1,48 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using Microsoft.AspNet.Identity;
+using RealTalk.Models;
+using System;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using RealTalk.Models;
-using RealTalk.Models.Context;
 
 namespace RealTalk.Controllers
 {
     public class PostsController : Controller
     {
-        private RealTalkContext db = new RealTalkContext();
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Posts
         public ActionResult Index()
         {
+            System.Diagnostics.Debug.WriteLine(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+            var username = User.Identity.GetUserName();
+            //User user = db.Users.Where(u => u.Username == username).FirstOrDefault();
+            System.Diagnostics.Debug.WriteLine(username);
+
+            //User user = db.Users.Find(1);
+            //System.Diagnostics.Debug.WriteLine(">>>>>>>>>>>>>>>>>>>>>>>>>>");
+            //System.Diagnostics.Debug.WriteLine(user.Id);
+            //System.Diagnostics.Debug.WriteLine("identity = " + User.Identity);
+            //System.Diagnostics.Debug.WriteLine("identity id = " + User.Identity.GetUserId<int>());
+            //System.Diagnostics.Debug.WriteLine("identity usename = " + User.Identity.GetUserName());
+
             return View(db.Posts.ToList());
         }
 
+        //public ActionResult Search(string tagName)
+        //{}
+
         // GET: Posts/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(int? id, string tagName)
         {
+            System.Diagnostics.Debug.WriteLine("D E T A I L S !!!");
+            System.Diagnostics.Debug.WriteLine(tagName);
+            if (tagName != null) 
+            {
+                System.Diagnostics.Debug.WriteLine("Tag name is not null!!!");
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -51,6 +70,10 @@ namespace RealTalk.Controllers
         {
             if (ModelState.IsValid)
             {
+                //int userId = User.Identity.GetUserId<int>();
+                int userId = 1;
+                //post.User = db.Users.Find(userId);
+                Console.WriteLine(db.Users.Find(userId));
                 db.Posts.Add(post);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -58,6 +81,26 @@ namespace RealTalk.Controllers
 
             return View(post);
         }
+
+        public ActionResult AddTagToPost(int id)
+        {
+            AddTagToPost model = new AddTagToPost();
+            model.selectedPost = id;
+            model.tags = db.Tags.ToList();
+            ViewBag.PostTitle = db.Posts.Find(id).Title;
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult AddTagToPost(AddTagToPost model)
+        {
+            var tag = db.Tags.Find(model.selectedTag);
+            var post = db.Posts.Find(model.selectedPost);
+            post.Tags.Add(tag);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
 
         // GET: Posts/Edit/5
         public ActionResult Edit(int? id)
