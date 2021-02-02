@@ -16,10 +16,6 @@ namespace RealTalk.Models
             // Add custom user claims here
             return userIdentity;
         }
-        public override string ToString()
-        {
-            return "abcdefgh";
-        }
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
