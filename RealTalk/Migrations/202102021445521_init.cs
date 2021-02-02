@@ -14,11 +14,11 @@ namespace RealTalk.Migrations
                         Id = c.Int(nullable: false, identity: true),
                         Content = c.String(),
                         Post_Id = c.Int(),
-                        User_Id = c.Int(),
+                        User_Id = c.String(maxLength: 128),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Posts", t => t.Post_Id)
-                .ForeignKey("dbo.Users", t => t.User_Id)
+                .ForeignKey("dbo.AspNetUsers", t => t.User_Id)
                 .Index(t => t.Post_Id)
                 .Index(t => t.User_Id);
             
@@ -29,10 +29,10 @@ namespace RealTalk.Migrations
                         Id = c.Int(nullable: false, identity: true),
                         Title = c.String(),
                         Content = c.String(),
-                        User_Id = c.Int(),
+                        User_Id = c.String(maxLength: 128),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Users", t => t.User_Id)
+                .ForeignKey("dbo.AspNetUsers", t => t.User_Id)
                 .Index(t => t.User_Id);
             
             CreateTable(
@@ -43,73 +43,6 @@ namespace RealTalk.Migrations
                         Name = c.String(),
                     })
                 .PrimaryKey(t => t.Id);
-            
-            CreateTable(
-                "dbo.Users",
-                c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        Username = c.String(),
-                        Password = c.String(),
-                        Email = c.String(),
-                        FistName = c.String(),
-                        LastName = c.String(),
-                        Type = c.Int(nullable: false),
-                    })
-                .PrimaryKey(t => t.Id);
-            
-            CreateTable(
-                "dbo.CommentVotes",
-                c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        Type = c.Int(nullable: false),
-                        Comment_Id = c.Int(),
-                        User_Id = c.Int(),
-                    })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Comments", t => t.Comment_Id)
-                .ForeignKey("dbo.Users", t => t.User_Id)
-                .Index(t => t.Comment_Id)
-                .Index(t => t.User_Id);
-            
-            CreateTable(
-                "dbo.PostVotes",
-                c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        Type = c.Int(nullable: false),
-                        Post_Id = c.Int(),
-                        User_Id = c.Int(),
-                    })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Posts", t => t.Post_Id)
-                .ForeignKey("dbo.Users", t => t.User_Id)
-                .Index(t => t.Post_Id)
-                .Index(t => t.User_Id);
-            
-            CreateTable(
-                "dbo.AspNetRoles",
-                c => new
-                    {
-                        Id = c.String(nullable: false, maxLength: 128),
-                        Name = c.String(nullable: false, maxLength: 256),
-                    })
-                .PrimaryKey(t => t.Id)
-                .Index(t => t.Name, unique: true, name: "RoleNameIndex");
-            
-            CreateTable(
-                "dbo.AspNetUserRoles",
-                c => new
-                    {
-                        UserId = c.String(nullable: false, maxLength: 128),
-                        RoleId = c.String(nullable: false, maxLength: 128),
-                    })
-                .PrimaryKey(t => new { t.UserId, t.RoleId })
-                .ForeignKey("dbo.AspNetRoles", t => t.RoleId, cascadeDelete: true)
-                .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
-                .Index(t => t.UserId)
-                .Index(t => t.RoleId);
             
             CreateTable(
                 "dbo.AspNetUsers",
@@ -157,6 +90,59 @@ namespace RealTalk.Migrations
                 .Index(t => t.UserId);
             
             CreateTable(
+                "dbo.AspNetUserRoles",
+                c => new
+                    {
+                        UserId = c.String(nullable: false, maxLength: 128),
+                        RoleId = c.String(nullable: false, maxLength: 128),
+                    })
+                .PrimaryKey(t => new { t.UserId, t.RoleId })
+                .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
+                .ForeignKey("dbo.AspNetRoles", t => t.RoleId, cascadeDelete: true)
+                .Index(t => t.UserId)
+                .Index(t => t.RoleId);
+            
+            CreateTable(
+                "dbo.CommentVotes",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Type = c.Int(nullable: false),
+                        Comment_Id = c.Int(),
+                        User_Id = c.String(maxLength: 128),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Comments", t => t.Comment_Id)
+                .ForeignKey("dbo.AspNetUsers", t => t.User_Id)
+                .Index(t => t.Comment_Id)
+                .Index(t => t.User_Id);
+            
+            CreateTable(
+                "dbo.PostVotes",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Type = c.Int(nullable: false),
+                        Post_Id = c.Int(),
+                        User_Id = c.String(maxLength: 128),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Posts", t => t.Post_Id)
+                .ForeignKey("dbo.AspNetUsers", t => t.User_Id)
+                .Index(t => t.Post_Id)
+                .Index(t => t.User_Id);
+            
+            CreateTable(
+                "dbo.AspNetRoles",
+                c => new
+                    {
+                        Id = c.String(nullable: false, maxLength: 128),
+                        Name = c.String(nullable: false, maxLength: 256),
+                    })
+                .PrimaryKey(t => t.Id)
+                .Index(t => t.Name, unique: true, name: "RoleNameIndex");
+            
+            CreateTable(
                 "dbo.TagPosts",
                 c => new
                     {
@@ -173,43 +159,42 @@ namespace RealTalk.Migrations
         
         public override void Down()
         {
+            DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
+            DropForeignKey("dbo.PostVotes", "User_Id", "dbo.AspNetUsers");
+            DropForeignKey("dbo.PostVotes", "Post_Id", "dbo.Posts");
+            DropForeignKey("dbo.CommentVotes", "User_Id", "dbo.AspNetUsers");
+            DropForeignKey("dbo.CommentVotes", "Comment_Id", "dbo.Comments");
+            DropForeignKey("dbo.Comments", "User_Id", "dbo.AspNetUsers");
+            DropForeignKey("dbo.Comments", "Post_Id", "dbo.Posts");
+            DropForeignKey("dbo.Posts", "User_Id", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
-            DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
-            DropForeignKey("dbo.PostVotes", "User_Id", "dbo.Users");
-            DropForeignKey("dbo.PostVotes", "Post_Id", "dbo.Posts");
-            DropForeignKey("dbo.CommentVotes", "User_Id", "dbo.Users");
-            DropForeignKey("dbo.CommentVotes", "Comment_Id", "dbo.Comments");
-            DropForeignKey("dbo.Comments", "User_Id", "dbo.Users");
-            DropForeignKey("dbo.Comments", "Post_Id", "dbo.Posts");
-            DropForeignKey("dbo.Posts", "User_Id", "dbo.Users");
             DropForeignKey("dbo.TagPosts", "Post_Id", "dbo.Posts");
             DropForeignKey("dbo.TagPosts", "Tag_Id", "dbo.Tags");
             DropIndex("dbo.TagPosts", new[] { "Post_Id" });
             DropIndex("dbo.TagPosts", new[] { "Tag_Id" });
-            DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
-            DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
-            DropIndex("dbo.AspNetUsers", "UserNameIndex");
-            DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
-            DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
             DropIndex("dbo.PostVotes", new[] { "User_Id" });
             DropIndex("dbo.PostVotes", new[] { "Post_Id" });
             DropIndex("dbo.CommentVotes", new[] { "User_Id" });
             DropIndex("dbo.CommentVotes", new[] { "Comment_Id" });
+            DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
+            DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
+            DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
+            DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
+            DropIndex("dbo.AspNetUsers", "UserNameIndex");
             DropIndex("dbo.Posts", new[] { "User_Id" });
             DropIndex("dbo.Comments", new[] { "User_Id" });
             DropIndex("dbo.Comments", new[] { "Post_Id" });
             DropTable("dbo.TagPosts");
-            DropTable("dbo.AspNetUserLogins");
-            DropTable("dbo.AspNetUserClaims");
-            DropTable("dbo.AspNetUsers");
-            DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetRoles");
             DropTable("dbo.PostVotes");
             DropTable("dbo.CommentVotes");
-            DropTable("dbo.Users");
+            DropTable("dbo.AspNetUserRoles");
+            DropTable("dbo.AspNetUserLogins");
+            DropTable("dbo.AspNetUserClaims");
+            DropTable("dbo.AspNetUsers");
             DropTable("dbo.Tags");
             DropTable("dbo.Posts");
             DropTable("dbo.Comments");

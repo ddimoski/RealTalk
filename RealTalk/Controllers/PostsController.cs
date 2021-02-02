@@ -15,18 +15,6 @@ namespace RealTalk.Controllers
         // GET: Posts
         public ActionResult Index()
         {
-            System.Diagnostics.Debug.WriteLine(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-            var username = User.Identity.GetUserName();
-            //User user = db.Users.Where(u => u.Username == username).FirstOrDefault();
-            System.Diagnostics.Debug.WriteLine(username);
-
-            //User user = db.Users.Find(1);
-            //System.Diagnostics.Debug.WriteLine(">>>>>>>>>>>>>>>>>>>>>>>>>>");
-            //System.Diagnostics.Debug.WriteLine(user.Id);
-            //System.Diagnostics.Debug.WriteLine("identity = " + User.Identity);
-            //System.Diagnostics.Debug.WriteLine("identity id = " + User.Identity.GetUserId<int>());
-            //System.Diagnostics.Debug.WriteLine("identity usename = " + User.Identity.GetUserName());
-
             return View(db.Posts.ToList());
         }
 
@@ -37,7 +25,8 @@ namespace RealTalk.Controllers
         public ActionResult Details(int? id, string tagName)
         {
             System.Diagnostics.Debug.WriteLine("D E T A I L S !!!");
-            System.Diagnostics.Debug.WriteLine(tagName);
+            System.Diagnostics.Debug.WriteLine(User.Identity.GetUserName());
+
             if (tagName != null) 
             {
                 System.Diagnostics.Debug.WriteLine("Tag name is not null!!!");
@@ -70,12 +59,12 @@ namespace RealTalk.Controllers
         {
             if (ModelState.IsValid)
             {
-                //int userId = User.Identity.GetUserId<int>();
-                int userId = 1;
-                //post.User = db.Users.Find(userId);
-                Console.WriteLine(db.Users.Find(userId));
+                string username = User.Identity.GetUserName();
+                ApplicationUser user = db.Users.Where(u => u.UserName == username).FirstOrDefault();
+                post.User = user;
                 db.Posts.Add(post);
                 db.SaveChanges();
+                System.Diagnostics.Debug.WriteLine("Saved post: "+post);
                 return RedirectToAction("Index");
             }
 

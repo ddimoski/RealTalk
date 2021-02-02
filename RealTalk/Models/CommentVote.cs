@@ -12,7 +12,7 @@ namespace RealTalk.Models
         public int Id { get; set; }
         public VoteType Type { get; set; }
 
-        public User User { get; set; }
+        public ApplicationUser User { get; set; }
 
         public Comment Comment { get; set; }
     }

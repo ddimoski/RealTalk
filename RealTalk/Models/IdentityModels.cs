@@ -16,6 +16,10 @@ namespace RealTalk.Models
             // Add custom user claims here
             return userIdentity;
         }
+        public override string ToString()
+        {
+            return "abcdefgh";
+        }
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
@@ -29,7 +33,6 @@ namespace RealTalk.Models
         {
             return new ApplicationDbContext();
         }
-
         public DbSet<Post> Posts { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Tag> Tags { get; set; }

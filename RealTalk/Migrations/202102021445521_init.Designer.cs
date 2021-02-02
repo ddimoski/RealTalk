@@ -13,7 +13,7 @@ namespace RealTalk.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "202102021415234_init"; }
+            get { return "202102021445521_init"; }
         }
         
         string IMigrationMetadata.Source

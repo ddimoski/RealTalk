@@ -176,9 +176,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202102021415234_init.cs" />
-    <Compile Include="Migrations\202102021415234_init.Designer.cs">
-      <DependentUpon>202102021415234_init.cs</DependentUpon>
+    <Compile Include="Migrations\202102021445521_init.cs" />
+    <Compile Include="Migrations\202102021445521_init.Designer.cs">
+      <DependentUpon>202102021445521_init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -190,7 +190,6 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Post.cs" />
     <Compile Include="Models\Tag.cs" />
-    <Compile Include="Models\User.cs" />
     <Compile Include="Models\PostVote.cs" />
     <Compile Include="Models\Enums\VoteType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -287,8 +286,8 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202102021415234_init.resx">
-      <DependentUpon>202102021415234_init.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202102021445521_init.resx">
+      <DependentUpon>202102021445521_init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
