@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNet.Identity;
 using RealTalk.Models;
 using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
@@ -18,25 +19,42 @@ namespace RealTalk.Controllers
             return View(db.Posts.ToList());
         }
 
-        //public ActionResult Search(string tagName)
-        //{}
+        public ActionResult Search(string tagName)
+        {
+            IEnumerable<string> tagNames = db.Tags.ToList().Select(t => t.Name);
+            if (tagNames.Contains(tagName))
+            {
+                Tag tag = db.Tags.Where(t => t.Name == tagName).FirstOrDefault();
+                Boolean flag = db.Posts.Find(1).Tags.Contains(tag);
+                IEnumerable<Post> filteredPosts = db.Posts.ToList().Where(p => p.Tags.Contains(tag));
+                Random r = new Random();
+                System.Diagnostics.Debug.WriteLine(filteredPosts.ToString());
+
+                int postIndex = r.Next(filteredPosts.Count());
+                int id = filteredPosts.ElementAt(postIndex).Id;
+                return RedirectToAction("Details/" + id);
+            }
+            else if (tagName == null || tagName == "")
+            {
+                int postsCount = db.Posts.Count();
+                Random r = new Random();
+                int postIndex = r.Next(postsCount);
+                int id = db.Posts.ToList().ElementAt(postIndex).Id;
+                return RedirectToAction("Details/" + id);
+            }
+            else
+                return RedirectToAction("Index");//ili custom error view
+        }
 
         // GET: Posts/Details/5
-        public ActionResult Details(int? id, string tagName)
+        public ActionResult Details(int? id)
         {
-            System.Diagnostics.Debug.WriteLine("D E T A I L S !!!");
-            System.Diagnostics.Debug.WriteLine(User.Identity.GetUserName());
-
-            if (tagName != null) 
-            {
-                System.Diagnostics.Debug.WriteLine("Tag name is not null!!!");
-            }
-
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Post post = db.Posts.Find(id);
+
             if (post == null)
             {
                 return HttpNotFound();
@@ -62,6 +80,7 @@ namespace RealTalk.Controllers
                 string username = User.Identity.GetUserName();
                 ApplicationUser user = db.Users.Where(u => u.UserName == username).FirstOrDefault();
                 post.User = user;
+                post.Author = username;
                 db.Posts.Add(post);
                 db.SaveChanges();
                 System.Diagnostics.Debug.WriteLine("Saved post: "+post);
