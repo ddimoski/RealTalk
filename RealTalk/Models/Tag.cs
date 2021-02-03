@@ -19,5 +19,12 @@ namespace RealTalk.Models
         {
             Posts = new List<Post>();
         }
+
+        public Tag(string name)
+        {
+            Name = name;
+            Posts = new List<Post>();
+
+        }
     }
 }
