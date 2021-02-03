@@ -73,7 +73,7 @@ namespace RealTalk.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Title,Content")] Post post)
+        public ActionResult Create([Bind(Include = "Id,Title,Content,TagsText")] Post post)
         {
             if (ModelState.IsValid)
             {
@@ -81,7 +81,17 @@ namespace RealTalk.Controllers
                 ApplicationUser user = db.Users.Where(u => u.UserName == username).FirstOrDefault();
                 post.User = user;
                 post.Author = username;
+                string[] splitUpTags = post.TagsText.Split(',');
+                post.Tags = new List<Tag>();
+                //AddTagToPost addTagToPost = new AddTagToPost();
+                //addTagToPost.selectedPost = post.Id;
+                foreach (string el in splitUpTags) {
+                    Tag tag = new Tag(el);
+                    //db.Tags.Add(tag);
+                    post.Tags.Add(tag);
+                }
                 db.Posts.Add(post);
+                //addTagToPost.selectedPost = post.Id;
                 db.SaveChanges();
                 System.Diagnostics.Debug.WriteLine("Saved post: "+post);
                 return RedirectToAction("Index");
