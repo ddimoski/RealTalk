@@ -106,7 +106,6 @@ E:\RealTalk\RealTalk\RealTalk\obj\Debug\RealTalk.csproj.CoreCompileInputs.cache
 E:\RealTalk\RealTalk\RealTalk\obj\Debug\RealTalk.csproj.CopyComplete
 E:\RealTalk\RealTalk\RealTalk\obj\Debug\RealTalk.dll
 E:\RealTalk\RealTalk\RealTalk\obj\Debug\RealTalk.pdb
-E:\RealTalk\RealTalk\RealTalk\obj\Debug\RealTalk.Migrations.initial.resources
 E:\RealTalk\RealTalk\RealTalk\obj\Debug\RealTalk.csproj.GenerateResource.cache
 C:\Users\Nikola\source\repos\RealTalk\RealTalk\bin\RealTalk.dll.config
 C:\Users\Nikola\source\repos\RealTalk\RealTalk\bin\RealTalk.dll
@@ -219,3 +218,6 @@ C:\Users\Nikola\source\repos\RealTalk\RealTalk\obj\Debug\RealTalk.pdb
 C:\Users\Nikola\source\repos\RealTalk\RealTalk\obj\Debug\RealTalk.Migrations.init.resources
 C:\Users\Nikola\source\repos\RealTalk\RealTalk\obj\Debug\RealTalk.csproj.GenerateResource.cache
 C:\Users\Nikola\source\repos\RealTalk\RealTalk\obj\Debug\RealTalk.Migrations.addedauthorinpost.resources
+E:\RealTalk\RealTalk\RealTalk\obj\Debug\RealTalk.Migrations.init.resources
+E:\RealTalk\RealTalk\RealTalk\obj\Debug\RealTalk.Migrations.addedauthorinpost.resources
+E:\RealTalk\RealTalk\RealTalk\obj\Debug\RealTalk.Migrations.modifiedpostmodel.resources
