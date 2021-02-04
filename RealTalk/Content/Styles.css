@@ -99,9 +99,15 @@
 }
 
 .txtdark{
-  color:#2E294E;
+  color:#2E294E!important;
     font-weight: bold;
 }
+
+.text-dark a{
+    color: black;
+    font-weight: bold;
+}
+
 
 .bgdark{
   background-color:#2E294E;
@@ -122,6 +128,7 @@
 .text-dark {
     color: black;
 }
+
 
 .text-light a:link, .text-light a:visited {
     color: white !important;
@@ -149,3 +156,6 @@
     height:50px;
 }
 
+a.my-class {
+    color: black;
+}
