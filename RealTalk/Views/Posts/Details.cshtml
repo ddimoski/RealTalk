@@ -3,53 +3,54 @@
 @{
     ViewBag.Title = "Details";  
 }
+<div class="text-light">
+    <h2>Details</h2>
 
-<h2>Details</h2>
+    <div>
+        <h4>Post</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Title)
+            </dt>
 
-<div>
-    <h4>Post</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Title)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
+            <!--This doesn't work,
+            easiest solution would be adding a string Author field and setting its value when creating a post-->
+            <dt>
+                @Html.DisplayNameFor(model => model.Author)
+            </dt>
 
-        <!--This doesn't work,
-        easiest solution would be adding a string Author field and setting its value when creating a post-->
-        <dt>
-            @Html.DisplayNameFor(model => model.Author)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Author)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Author)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Content)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Content)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Content)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Content)
-        </dd>
+            <h4>Tags:</h4>
+            <ul>
+                @foreach (var item in Model.Tags)
+                {
+                    <li>
+                        <a href="/Tags/Details/@item.Id">@item.Name</a>
+                    </li>
+                }
 
-        <h4>Tags:</h4>
-        <ul>
-            @foreach (var item in Model.Tags)
-            {
-                <li>
-                    <a href="/Tags/Details/@item.Id">@item.Name</a>
-                </li>
-            }
+            </ul>
 
-        </ul>
-
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+    </div>

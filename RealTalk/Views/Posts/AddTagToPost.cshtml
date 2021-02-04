@@ -2,17 +2,19 @@
 @{
     ViewBag.Title = "AddTagToPost";
 }
+<div class="text-light">
+    <h2>Add Tag To Post with title:</h2>
+    <h4>@ViewBag.PostTitle</h4>
 
-<h2>Add Tag To Post with title:</h2>
-<h4>@ViewBag.PostTitle</h4>
 
+    @using (Html.BeginForm("AddTagToPost", "Posts"))
+    {
+        <div class="form-group txtdark">
+            @Html.DropDownListFor(m => m.selectedTag, new SelectList(Model.tags, "Id", "Name"))
+        </div>
+        <button type="submit" class="btn btn-danger">Add</button>
 
-@using (Html.BeginForm("AddTagToPost", "Posts"))
-{
-    <div class="form-group">
-        @Html.DropDownListFor(m => m.selectedTag, new SelectList(Model.tags, "Id", "Name"))
-    </div>
-    <button type="submit" class="btn btn-danger">Add</button>
+        @Html.HiddenFor(m => m.selectedPost)
+    }
 
-    @Html.HiddenFor(m => m.selectedPost)
-}
+</div>

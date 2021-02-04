@@ -131,3 +131,21 @@
     width:200px;
     height:auto;
 }
+
+.borderstyle {
+    border-style:dashed;
+    border-color:white;
+    padding:20px;
+}
+
+.adjust {
+    margin-right: 150px !important;
+    resize: none !important;
+}
+
+.mymultitextboxclass {
+    resize:none !important;
+    width:280px;
+    height:50px;
+}
+
