@@ -330,3 +330,5 @@ C:\Users\tokyo\Desktop\Documents\GitHub\RealTalk\RealTalk\obj\Debug\RealTalk.csp
 C:\Users\tokyo\Desktop\Documents\GitHub\RealTalk\RealTalk\obj\Debug\RealTalk.csproj.CopyComplete
 C:\Users\tokyo\Desktop\Documents\GitHub\RealTalk\RealTalk\obj\Debug\RealTalk.dll
 C:\Users\tokyo\Desktop\Documents\GitHub\RealTalk\RealTalk\obj\Debug\RealTalk.pdb
+C:\Users\Nikola\source\repos\RealTalk\RealTalk\obj\Debug\RealTalk.Migrations.added_author_to_post.resources
+C:\Users\Nikola\source\repos\RealTalk\RealTalk\obj\Debug\RealTalk.Migrations.added_comments_field_to_post.resources

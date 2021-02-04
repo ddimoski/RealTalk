@@ -1,0 +1,22 @@
+﻿@model RealTalk.Models.AddCommentToPost
+@{
+    ViewBag.Title = "AddCommentToPost";
+}
+
+@*<h2>AddCommentToPost</h2>*@
+<div class="text-light">
+    <h2>Add Comment To Post with title:</h2>
+    <h4>@ViewBag.PostTitle</h4>
+
+
+    @using (Html.BeginForm("AddCommentToPost", "Posts"))
+    {
+        <div class="form-group txtdark">
+            @Html.TextAreaFor(m => m.commentToAdd, new { @class = "form-control" })
+        </div>
+        <button type="submit" class="btn btn-danger">Add</button>
+
+        @Html.HiddenFor(m => m.selectedPost)
+    }
+
+</div>

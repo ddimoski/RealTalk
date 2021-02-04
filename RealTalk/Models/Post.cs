@@ -20,6 +20,8 @@ namespace RealTalk.Models
         public String Author { get; set; }
         public virtual List<Tag> Tags { get; set; }
 
+        public virtual List<Comment> Comments { get; set; }
+
         public Post()
         {
             Tags = new List<Tag>();

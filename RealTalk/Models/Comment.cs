@@ -15,6 +15,8 @@ namespace RealTalk.Models
 
         public ApplicationUser User { get; set; }
 
+        public String Author { get; set; }
+
         public Post Post { get; set; }
     }
 }

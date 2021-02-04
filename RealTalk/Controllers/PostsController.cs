@@ -109,6 +109,32 @@ namespace RealTalk.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult AddCommentToPost(int id, string commentContent)
+        {
+            AddCommentToPost model = new AddCommentToPost();
+            model.selectedPost = id;
+            //model.tags = db.Tags.ToList();
+            ViewBag.PostTitle = db.Posts.Find(id).Title;
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult AddCommentToPost(AddCommentToPost model)
+        {
+            string username = User.Identity.GetUserName();
+            ApplicationUser user = db.Users.Where(u => u.UserName == username).FirstOrDefault();
+            Comment comment = new Comment();
+            comment.User = user;
+            comment.Author = username;
+            comment.Content = model.commentToAdd;
+            db.Comments.Add(comment);
+            db.SaveChanges();
+            var post = db.Posts.Find(model.selectedPost);
+            post.Comments.Add(comment);
+            db.SaveChanges();
+            return RedirectToAction("Details/" + post.Id);
+        }
+
 
         // GET: Posts/Edit/5
         public ActionResult Edit(int? id)

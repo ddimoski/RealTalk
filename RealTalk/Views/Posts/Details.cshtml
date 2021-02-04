@@ -19,7 +19,7 @@
             </dd>
 
             <!--This doesn't work,
-            easiest solution would be adding a string Author field and setting its value when creating a post-->
+    easiest solution would be adding a string Author field and setting its value when creating a post-->
             <dt>
                 @Html.DisplayNameFor(model => model.Author)
             </dt>
@@ -36,7 +36,7 @@
                 @Html.DisplayFor(model => model.Content)
             </dd>
 
-            <h4>Tags:</h4>
+            <h5>Tags:</h5>
             <ul>
                 @foreach (var item in Model.Tags)
                 {
@@ -44,12 +44,24 @@
                         <a href="/Tags/Details/@item.Id">@item.Name</a>
                     </li>
                 }
-
+            </ul>
+            <hr />
+            <h5>Comments:</h5>
+            <ul>
+                @foreach (var item in Model.Comments)
+                {   
+                    <li>
+                        <div><strong>@item.Author</strong></div>
+                        <div>@item.Content</div>
+                    </li>
+                    <br />
+                }
             </ul>
 
         </dl>
     </div>
     <p>
+        @Html.ActionLink("Add a Comment", "AddCommentToPost", new { id = Model.Id }) |
         @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
         @Html.ActionLink("Back to List", "Index")
     </p>
