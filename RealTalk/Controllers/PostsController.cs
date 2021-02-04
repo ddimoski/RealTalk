@@ -160,6 +160,8 @@ namespace RealTalk.Controllers
         {
             if (ModelState.IsValid)
             {
+                string username = User.Identity.GetUserName();
+                post.Author = username;
                 db.Entry(post).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -182,12 +184,24 @@ namespace RealTalk.Controllers
             return View(post);
         }
 
+        // GET: Posts/@username ??
+        public ActionResult UserPosts()
+        {
+            String username = User.Identity.GetUserName();
+            ApplicationUser user = db.Users.Where(u => u.UserName == username).FirstOrDefault();
+            IEnumerable<Post> filteredPosts = db.Posts.ToList().Where(p => p.Author.Trim().Equals(username.Trim()));
+            return View(filteredPosts.ToList());
+        }
+
         // POST: Posts/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
             Post post = db.Posts.Find(id);
+            //first remove post's comments
+            db.Comments.RemoveRange(post.Comments);
+            db.SaveChanges();
             db.Posts.Remove(post);
             db.SaveChanges();
             return RedirectToAction("Index");

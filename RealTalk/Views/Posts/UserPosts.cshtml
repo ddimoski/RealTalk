@@ -1,16 +1,14 @@
 ﻿@model IEnumerable<RealTalk.Models.Post>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "UserPosts";
 }
 
 <div class="text-light">
-    <h2>Posts</h2>
+    <h1><strong>User Posts</strong></h1>
 
     <p>
         @Html.ActionLink("Create New", "Create")
-        <br />
-        @Html.ActionLink("Posts By User", "UserPosts")<br />
     </p>
 
     @*<a href="#" class="btn btn-primary" id="export-btn">Find a random post</a>
