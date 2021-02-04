@@ -19,6 +19,12 @@ namespace RealTalk.Controllers
             return View(db.Posts.ToList());
         }
 
+        [Authorize(Roles = "Moderator")]
+        public ActionResult FlaggedPosts()
+        {
+            return View(db.Posts.ToList().Where(post => post.Flagged == true));
+        }
+
         public ActionResult Search(string tagName)
         {
             IEnumerable<string> tagNames = db.Tags.ToList().Select(t => t.Name);
@@ -44,6 +50,19 @@ namespace RealTalk.Controllers
             }
             else
                 return RedirectToAction("Index");//ili custom error view
+        }
+
+        [Authorize(Roles = "Moderator")]
+        public ActionResult RemoveFlag(int? id)
+        {
+            Post post = db.Posts.Find(id);
+            if(post != null)
+            {
+                post.Flagged = false;
+                db.SaveChanges();
+            }
+            
+            return RedirectToAction("FlaggedPosts");
         }
 
         // GET: Posts/Details/5
