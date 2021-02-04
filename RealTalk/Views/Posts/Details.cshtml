@@ -45,11 +45,14 @@
                     </li>
                 }
             </ul>
+
+            @Html.ActionLink("Add a Tag", "AddTagToPost", new { id = Model.Id }) 
+
             <hr />
             <h5>Comments:</h5>
             <ul>
                 @foreach (var item in Model.Comments)
-                {   
+                {
                     <li>
                         <div><strong>@item.Author</strong></div>
                         <div>@item.Content</div>
