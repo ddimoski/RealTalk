@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 using RealTalk.Models;
 
 namespace RealTalk.Controllers
@@ -50,6 +51,10 @@ namespace RealTalk.Controllers
         {
             if (ModelState.IsValid)
             {
+                string username = User.Identity.GetUserName();
+                ApplicationUser user = db.Users.Where(u => u.UserName == username).FirstOrDefault();
+                comment.User = user;
+                comment.Author = username;
                 db.Comments.Add(comment);
                 db.SaveChanges();
                 return RedirectToAction("Index");

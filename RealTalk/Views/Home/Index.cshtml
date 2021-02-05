@@ -1,31 +1,36 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
+<div class="text-light">
+    <!--Welcome box-->
+    <div class="col-12 text-center">
+        <div class="jumbotron text-light bgdark">
+            <img src="/Content/Images/realtalk.png" style="height: 300px;margin-top:-50px; width: auto">
+            <h1 class="display-4">#RealTalk - Connected Together!</h1>
+            <p class="lead">Connect with strangers over a mutual topic! Search a keyword below.</p>
+            <br>
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
+            <!--Search box-->
+            <div class="row">
+                <div class="col-4"></div>
+                <div class="col-4"></div>
+                <form class="col-4" action="Posts/Search/">
+                    <input class="form-control center-block" type="text" name="tagName" placeholder="Enter a keyword.." aria-label="Search" required>
+                    <br>
+                    <button class="btn btn-success my-2 my-sm-0" type="submit">Connect to a Discussion</button>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+                    <br /> <br /> or <br /><br />
+                    <button class="btn btn-success my-2 my-sm-0" type="submit">@Html.ActionLink("Start Your Own!", "Create", "Posts")</button>
+
+
+                </form>
+                <div class="col-4"></div>
+            </div>
+
+            </p>
+        </div>
     </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
+
+
+
 </div>

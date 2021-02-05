@@ -3,64 +3,63 @@
 @{
     ViewBag.Title = "Details";  
 }
+<div class="text-light">
 
-<h2>Details</h2>
+    <div class="text-center">
+        <div class="box1 sb2 text-left">
 
-<div>
-    <h4>Post</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
+            <h4 class="txtdark">@Html.DisplayFor(model => model.Title)</h4>
+            <h6 class="txtdark">By user: @Html.DisplayFor(model => model.Author)</h6>
 
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
+            <br />
+            <p> @Html.DisplayFor(model => model.Content)</p>
 
-        <!--This doesn't work,
-    easiest solution would be adding a string Author field and setting its value when creating a post-->
-        <dt>
-            @Html.DisplayNameFor(model => model.Author)
-        </dt>
+            <div class="row">
+                Tags:
+                @foreach (var item in Model.Tags)
+                {
+                    <a href="/Tags/Details/@item.Id">#@item.Name</a>
+                }
+            </div>
+            <br />
 
-        <dd>
-            @Html.DisplayFor(model => model.Author)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Content)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Content)
-        </dd>
-
-        <dt>
-            Tags
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TagsText)
-        </dd>
-
-        @* <h4>Tags:</h4>
-        <span>
-            @Html.DisplayFor(model => model.TagsText)
-        </span>
-               <ul>
-            @foreach (var item in Model.Tags)
+            @if (User.Identity.IsAuthenticated && (ViewContext.HttpContext.User.Identity.Name == Model.Author))
             {
-                <li>
-                    <a href="/Tags/Details/@item.Id">@item.Name</a>
-                </li>
+                @Html.ActionLink("Edit Post", "Edit", new { id = Model.Id }, new { @style = "color:#2E294E !important; font-weight:bold;" })
+                <span style="color:#2E294E !important"> | </span>
+                @Html.ActionLink("Add a New Tag", "AddTagToPost", new { id = Model.Id }, new { @style = "color:#2E294E !important; font-weight:bold;" })
+
+            }
+            else
+            {
+                @Html.ActionLink("Report This Post", "FlagPost", "Posts", new { id = Model.Id }, new { @style = "color:#2E294E !important; font-weight:bold;" })
             }
 
-        </ul>*@
 
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+        </div>
+        @*<button class="btn my-2 my-sm-0 text-dark">Not satisfied with this post? Click to try again!</button>*@
+        <button class="btn my-2 my-sm-0 text-dark">@Html.ActionLink("Not satisfied with this post? Click to try again!", "RandomPost", "Posts", null, new { @style = "color:#2E294E !important; font-weight:bold;" })</button>
+        <br><br><br>
+        <br />
+        <h3 class="text-center">Comments:</h3>
+        <div>
+            @foreach (var item in Model.Comments)
+            {
+                <div class="box2 sb1 text-right">
+                    <div>@item.Content</div>
+                    <div><strong> By user: @item.Author</strong></div>
+
+                </div>
+                <br />
+            }
+        </div>
+
+        <button class="btn my-2 my-sm-0 text-dark">@Html.ActionLink("Add a Comment", "AddCommentToPost", new { id = Model.Id }, new { @style = "color:#2E294E !important; font-weight:bold;" })</button>
+        <br />
+        <br />
+
+    </div>
+    <p class="text-center">        
+        @Html.ActionLink("Back to Home", "Index", "Home")
+    </p>
+    </div>

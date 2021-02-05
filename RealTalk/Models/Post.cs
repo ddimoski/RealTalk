@@ -22,9 +22,15 @@ namespace RealTalk.Models
 
         public String TagsText { get; set; }
 
+        public virtual List<Comment> Comments { get; set; }
+
+        public bool Flagged { get; set; }
+
         public Post()
         {
             Tags = new List<Tag>();
+            Comments = new List<Comment>();
+            Flagged = false;
         }
     }
 }

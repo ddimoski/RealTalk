@@ -1,0 +1,161 @@
+.box1 {
+  width: 600px;
+  margin: 50px auto;
+  background: #5DACBD;
+  padding: 20px;
+  text-align: center;
+  font-weight: 400;
+  color: #fff;
+  font-family: arial;
+  position:relative;
+    border-radius: 10px;
+}
+
+.box2 {
+  width: 600px;
+  margin: 50px auto;
+  background: #4BB543;
+  padding: 20px;
+  text-align: center;
+  font-weight: 400;
+  color: #fff;
+  font-family: arial;
+  position:relative;
+    border-radius: 10px;
+}
+
+.sb1:before {
+  content: "";
+  width: 0px;
+  height: 0px;
+  position: absolute;
+  border-left: 10px solid #4BB543;
+  border-right: 10px solid transparent;
+  border-top: 10px solid #4BB543;
+  border-bottom: 10px solid transparent;
+  right: -20px;
+  top: 6px;
+}
+
+
+.sb2:before {
+  content: "";
+  width: 0px;
+  height: 0px;
+  position: absolute;
+  border-left: 10px solid transparent;
+  border-right: 10px solid #5DACBD;
+  border-top: 10px solid #5DACBD;
+  border-bottom: 10px solid transparent;
+  left: -19px;
+  top: 6px;
+}
+
+.sb3:before {
+  content: "";
+  width: 0px;
+  height: 0px;
+  position: absolute;
+  border-left: 10px solid #4BB543;
+  border-right: 10px solid transparent;
+  border-top: 10px solid #4BB543;
+  border-bottom: 10px solid transparent;
+  left: 19px;
+  bottom: -19px;
+}
+
+.sb4:before {
+  content: "";
+  width: 0px;
+  height: 0px;
+  position: absolute;
+  border-left: 10px solid transparent;
+  border-right: 10px solid #4BB543;
+  border-top: 10px solid #4BB543;
+  border-bottom: 10px solid transparent;
+  right: 19px;
+  bottom: -19px;
+}
+
+
+
+/* youtube link */
+.youtube{
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  width: 160px;
+  text-align: center;
+  padding: 15px 10px;
+  background: #bb0000;
+  border-radius: 5px;
+}
+
+.youtube a{
+  text-decoration: none;
+  color: #fff;
+  text-transform: capitalize;
+  letter-spacing: 1px;
+}
+
+.txtdark{
+  color:#2E294E!important;
+    font-weight: bold;
+}
+
+.text-dark a{
+    color: black;
+    font-weight: bold;
+}
+
+
+.bgdark{
+  background-color:#2E294E;
+}
+
+.bgblue{
+  background-color:#5DACBD;
+
+}
+.navbar-nav a:hover {
+    background-color: #5DACBD;
+}
+
+.text-light {
+    color: white;
+}
+
+.text-dark {
+    color: black;
+}
+
+
+.text-light a:link, .text-light a:visited {
+    color: white !important;
+}
+
+.tablestyle {
+    width:200px;
+    height:auto;
+}
+
+.borderstyle {
+    border-style:dashed;
+    border-color:white;
+    padding:20px;
+}
+
+.adjust {
+    margin-right: 150px !important;
+    resize: none !important;
+}
+
+.mymultitextboxclass {
+    resize:none !important;
+    width:280px;
+    height:50px;
+}
+
+a.my-class {
+    color: black;
+}

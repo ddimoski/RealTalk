@@ -75,7 +75,13 @@ namespace RealTalk.Controllers
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            var splitEmail = model.Email.Split('@');
+            var username = model.Email;
+            if(splitEmail.Length > 0)
+            {
+                username = splitEmail[0];
+            }
+            var result = await SignInManager.PasswordSignInAsync(username, model.Password, model.RememberMe, shouldLockout: false);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -151,7 +157,14 @@ namespace RealTalk.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                string username = model.Email;
+                string [] splitEmail = model.Email.Split('@');
+                if(splitEmail.Length > 0)
+                {
+                    username = splitEmail[0];  // this will take the string before the @ of the email
+
+                }
+                var user = new ApplicationUser { UserName = username, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
