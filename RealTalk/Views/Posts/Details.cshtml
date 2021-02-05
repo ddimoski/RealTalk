@@ -9,13 +9,10 @@
         <div class="box1 sb2 text-left">
 
             <h4 class="txtdark">@Html.DisplayFor(model => model.Title)</h4>
-            <h6 class="txtdark">By user:@Html.DisplayFor(model => model.Author)</h6>
+            <h6 class="txtdark">By user: @Html.DisplayFor(model => model.Author)</h6>
 
             <br />
             <p> @Html.DisplayFor(model => model.Content)</p>
-
-            <!--This doesn't work,
-        easiest solution would be adding a string Author field and setting its value when creating a post-->
 
             <div class="row">
                 Tags:
@@ -24,30 +21,45 @@
                     <a href="/Tags/Details/@item.Id">#@item.Name</a>
                 }
             </div>
+            <br />
 
-            @Html.ActionLink("Add a New Tag", "AddTagToPost", new { id = Model.Id }, new { @style = "color:#2E294E !important; font-weight:bold;" })
+            @if (User.Identity.IsAuthenticated && (ViewContext.HttpContext.User.Identity.Name == Model.Author))
+            {
+                @Html.ActionLink("Edit Post", "Edit", new { id = Model.Id }, new { @style = "color:#2E294E !important; font-weight:bold;" })
+                <span style="color:#2E294E !important"> | </span>
+                @Html.ActionLink("Add a New Tag", "AddTagToPost", new { id = Model.Id }, new { @style = "color:#2E294E !important; font-weight:bold;" })
+
+            }
+            else
+            {
+                @Html.ActionLink("Report This Post", "FlagPost", "Posts", new { id = Model.Id }, new { @style = "color:#2E294E !important; font-weight:bold;" })
+            }
+
+
         </div>
-        <button class="btn my-2 my-sm-0 text-dark">Not satisfied with this post? Click to try again!</button> <br><br><br>
-
+        @*<button class="btn my-2 my-sm-0 text-dark">Not satisfied with this post? Click to try again!</button>*@
+        <button class="btn my-2 my-sm-0 text-dark">@Html.ActionLink("Not satisfied with this post? Click to try again!", "RandomPost", "Posts", null, new { @style = "color:#2E294E !important; font-weight:bold;" })</button>
+        <br><br><br>
         <br />
         <h3 class="text-center">Comments:</h3>
         <div>
             @foreach (var item in Model.Comments)
             {
-            <div class="box2 sb1 text-right">
-                <div>@item.Content</div>
-                <div><strong> By user: @item.Author</strong></div>
+                <div class="box2 sb1 text-right">
+                    <div>@item.Content</div>
+                    <div><strong> By user: @item.Author</strong></div>
 
-            </div>
+                </div>
                 <br />
             }
         </div>
 
+        <button class="btn my-2 my-sm-0 text-dark">@Html.ActionLink("Add a Comment", "AddCommentToPost", new { id = Model.Id }, new { @style = "color:#2E294E !important; font-weight:bold;" })</button>
+        <br />
+        <br />
 
-    </div >
-        <p class="text-center">
-            @Html.ActionLink("Add a Comment", "AddCommentToPost", new { id = Model.Id }) |
-            @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-            @Html.ActionLink("Back to Home", "Index","Home")
-        </p>
+    </div>
+    <p class="text-center">        
+        @Html.ActionLink("Back to Home", "Index", "Home")
+    </p>
     </div>

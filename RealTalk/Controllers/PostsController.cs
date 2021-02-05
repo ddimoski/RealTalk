@@ -25,6 +25,18 @@ namespace RealTalk.Controllers
             return View(db.Posts.ToList().Where(post => post.Flagged == true));
         }
 
+        public ActionResult FlagPost(int id)
+        {
+            Post post = db.Posts.Find(id);
+            if(post.Flagged == false)
+            {
+                post.Flagged = true;
+                db.SaveChanges();
+            }
+
+            return View("ThankYouReport");
+
+        }
         public ActionResult Search(string tagName)
         {
             IEnumerable<string> tagNames = db.Tags.ToList().Select(t => t.Name);
@@ -49,7 +61,21 @@ namespace RealTalk.Controllers
                 return RedirectToAction("Details/" + id);
             }
             else
-                return RedirectToAction("Index");//ili custom error view
+                return RedirectToAction("NoPostFound");//ili custom error view
+        }
+
+        public ActionResult RandomPost()
+        {
+            int postsCount = db.Posts.Count();
+            Random r = new Random();
+            int postIndex = r.Next(postsCount);
+            int id = db.Posts.ToList().ElementAt(postIndex).Id;
+            return RedirectToAction("Details/" + id);
+        }
+
+        public ActionResult NoPostFound()
+        {
+            return View();
         }
 
         [Authorize(Roles = "Moderator")]
@@ -82,6 +108,7 @@ namespace RealTalk.Controllers
         }
 
         // GET: Posts/Create
+        [Authorize]
         public ActionResult Create()
         {
             return View();
@@ -92,6 +119,7 @@ namespace RealTalk.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult Create([Bind(Include = "Id,Title,Content")] Post post)
         {
             if (ModelState.IsValid)
@@ -103,12 +131,13 @@ namespace RealTalk.Controllers
                 db.Posts.Add(post);
                 db.SaveChanges();
                 System.Diagnostics.Debug.WriteLine("Saved post: "+post);
-                return RedirectToAction("Index");
+                return RedirectToAction("Details/" + post.Id);
             }
 
             return View(post);
         }
 
+        [Authorize]
         public ActionResult AddTagToPost(int id)
         {
             AddTagToPost model = new AddTagToPost();
@@ -118,6 +147,7 @@ namespace RealTalk.Controllers
             return View(model);
         }
 
+        [Authorize]
         [HttpPost]
         public ActionResult AddTagToPost(AddTagToPost model)
         {
@@ -125,9 +155,10 @@ namespace RealTalk.Controllers
             var post = db.Posts.Find(model.selectedPost);
             post.Tags.Add(tag);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Details/" + post.Id);
         }
 
+        [Authorize]
         public ActionResult AddCommentToPost(int id, string commentContent)
         {
             AddCommentToPost model = new AddCommentToPost();
@@ -138,6 +169,7 @@ namespace RealTalk.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public ActionResult AddCommentToPost(AddCommentToPost model)
         {
             string username = User.Identity.GetUserName();
@@ -156,6 +188,7 @@ namespace RealTalk.Controllers
 
 
         // GET: Posts/Edit/5
+        [Authorize]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -175,6 +208,7 @@ namespace RealTalk.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult Edit([Bind(Include = "Id,Title,Content")] Post post)
         {
             if (ModelState.IsValid)
@@ -183,12 +217,13 @@ namespace RealTalk.Controllers
                 post.Author = username;
                 db.Entry(post).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details/" + post.Id);
             }
             return View(post);
         }
 
         // GET: Posts/Delete/5
+        [Authorize]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -204,6 +239,7 @@ namespace RealTalk.Controllers
         }
 
         // GET: Posts/@username ??
+        [Authorize]
         public ActionResult UserPosts()
         {
             String username = User.Identity.GetUserName();
@@ -215,6 +251,7 @@ namespace RealTalk.Controllers
         // POST: Posts/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult DeleteConfirmed(int id)
         {
             Post post = db.Posts.Find(id);

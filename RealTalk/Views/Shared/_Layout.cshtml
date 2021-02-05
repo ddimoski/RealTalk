@@ -23,11 +23,20 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("About Us", "About", "Home")</li>
-                    <li>@Html.ActionLink("Create", "Create", "Posts")</li>
-                    <li>@Html.ActionLink("Profile", "", "Manage")</li>
-                    <li>@Html.ActionLink("Posts", "Index", "Posts")</li>
-                    <li>@Html.ActionLink("Tags", "Index", "Tags")</li>
-                    <li>@Html.ActionLink("Comments", "Index", "Comments")</li>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li>@Html.ActionLink("Create a Post", "Create", "Posts")</li>
+                        <li>@Html.ActionLink("My Posts", "UserPosts", "Posts")</li>
+                        <li>@Html.ActionLink("Profile", "", "Manage")</li>
+                    }
+
+                    @if (User.Identity.IsAuthenticated && User.IsInRole("Moderator"))
+                    {
+                        <li>@Html.ActionLink("All Posts", "Index", "Posts")</li>
+                        <li>@Html.ActionLink("Flagged Posts", "FlaggedPosts", "Posts")</li>
+                    }
+                    @*<li>@Html.ActionLink("Tags", "Index", "Tags")</li>
+        <li>@Html.ActionLink("Comments", "Index", "Comments")</li>*@
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

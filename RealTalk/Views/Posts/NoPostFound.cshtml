@@ -1,0 +1,19 @@
+﻿
+@{
+    ViewBag.Title = "No Post Found";
+}
+
+<div class="text-light">
+
+    <div class="text-center">
+        <br />
+        <br />
+        <br />
+        <h2>We're sorry but no posts were found with this tag.</h2>
+        <br />
+        <button class="btn my-2 my-sm-0 text-dark">@Html.ActionLink("Give Me a Random Post", "RandomPost", "Posts", null, new { @style = "color:#2E294E !important; font-weight:bold;" })</button>
+        <button class="btn my-2 my-sm-0 text-dark">@Html.ActionLink("Back to Homepage", "Index", "Home", null, new { @style = "color:#2E294E !important; font-weight:bold;" })</button>
+        <br />
+        <br />
+    </div>
+</div>

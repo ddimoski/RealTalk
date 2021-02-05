@@ -17,7 +17,12 @@
                 <form class="col-4" action="Posts/Search/">
                     <input class="form-control center-block" type="text" name="tagName" placeholder="Enter a keyword.." aria-label="Search" required>
                     <br>
-                    <button class="btn btn-success my-2 my-sm-0" type="submit">Connect to a discussion</button>
+                    <button class="btn btn-success my-2 my-sm-0" type="submit">Connect to a Discussion</button>
+
+                    <br /> <br /> or <br /><br />
+                    <button class="btn btn-success my-2 my-sm-0" type="submit">@Html.ActionLink("Start Your Own!", "Create", "Posts")</button>
+
+
                 </form>
                 <div class="col-4"></div>
             </div>

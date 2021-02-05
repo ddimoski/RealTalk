@@ -291,6 +291,8 @@
     <Content Include="Views\Posts\AddCommentToPost.cshtml" />
     <Content Include="Views\Posts\UserPosts.cshtml" />
     <Content Include="Views\Posts\FlaggedPosts.cshtml" />
+    <Content Include="Views\Posts\NoPostFound.cshtml" />
+    <Content Include="Views\Posts\ThankYouReport.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

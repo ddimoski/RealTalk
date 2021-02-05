@@ -1,0 +1,20 @@
+﻿
+@{
+    ViewBag.Title = "ThankYouReport";
+}
+
+<div class="text-light">
+
+    <div class="text-center">
+        <br />
+        <br />
+        <br />
+        <h2>Thank you for reporting this post</h2>
+        <h4>Our team will examine if it violates our guidelines and act accordingly.</h4>
+        <br />
+        <button class="btn my-2 my-sm-0 text-dark">@Html.ActionLink("Give Me a Random Post", "RandomPost", "Posts", null, new { @style = "color:#2E294E !important; font-weight:bold;" })</button>
+        <button class="btn my-2 my-sm-0 text-dark">@Html.ActionLink("Back to Homepage", "Index", "Home", null, new { @style = "color:#2E294E !important; font-weight:bold;" })</button>
+        <br />
+        <br />
+    </div>
+</div>
