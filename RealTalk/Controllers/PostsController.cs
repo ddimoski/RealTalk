@@ -45,6 +45,10 @@ namespace RealTalk.Controllers
                 Tag tag = db.Tags.Where(t => t.Name == tagName).FirstOrDefault();
                 Boolean flag = db.Posts.Find(1).Tags.Contains(tag);
                 IEnumerable<Post> filteredPosts = db.Posts.ToList().Where(p => p.Tags.Contains(tag));
+                if(filteredPosts.Count() == 0)
+                {
+                    return RedirectToAction("NoPostFound");
+                }
                 Random r = new Random();
                 System.Diagnostics.Debug.WriteLine(filteredPosts.ToString());
 

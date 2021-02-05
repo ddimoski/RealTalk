@@ -196,6 +196,10 @@
     <Compile Include="Migrations\202102041918375_add-flagged-to-post.Designer.cs">
       <DependentUpon>202102041918375_add-flagged-to-post.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202102050311598_mystery-migration.cs" />
+    <Compile Include="Migrations\202102050311598_mystery-migration.Designer.cs">
+      <DependentUpon>202102050311598_mystery-migration.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AddCommentToPost.cs" />
@@ -325,6 +329,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202102041918375_add-flagged-to-post.resx">
       <DependentUpon>202102041918375_add-flagged-to-post.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102050311598_mystery-migration.resx">
+      <DependentUpon>202102050311598_mystery-migration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
